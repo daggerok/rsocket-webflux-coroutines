@@ -1,0 +1,27 @@
+GET http://localhost:8004/api/messages
+Accept: application/json
+
+###
+
+GET http://localhost:8004/api/messages/1
+Accept: application/json
+
+> {%
+client.test('Should generate a name', function () {
+  var chars = ' ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var data = '';
+  for (var i = 0; i < 12; i++) {
+      data += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  client.global.set("data", data);
+});
+%}
+###
+
+POST http://localhost:8004/api/messages
+Accept: application/json
+Content-Type: application/json
+
+{
+  "data": "{{data}}"
+}
